@@ -10,14 +10,13 @@ defmodule Solution do
   def part_2 do
     reset_state = get_input() |> set_initial_data()
 
-    for noun <- 0..99, verb <- 0..99 do {noun, verb} end
-    |> Enum.filter(fn ({noun, verb})->  reset_state |> set_initial_data(noun, verb) |> solve_part_1 === 19_690_720 end)
+    for noun <- 0..99, verb <- 0..99 do
+      {noun, verb}
+    end
+    |> Enum.filter(fn {noun, verb} ->
+      reset_state |> set_initial_data(noun, verb) |> solve_part_1 === 19_690_720
+    end)
     |> get_result()
-    #    value = 
-    #   if value ===  do
-    #      IO.puts(100 * noun + verb)
-    #    end
-    # end
   end
 
   def get_result([{noun, verb}]) do
