@@ -8,14 +8,12 @@ defmodule Solution do
     get_input()
     |> Enum.map(&get_fuel_req/1)
     |> Enum.sum
-    |> IO.puts
   end
 
   def solve_part_2 do
     get_input()
     |> Enum.map(&get_added_fuel/1)
     |> Enum.sum
-    |> IO.puts
   end
 
   def get_input do 
