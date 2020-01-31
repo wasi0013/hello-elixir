@@ -10,17 +10,17 @@ defmodule Solution do
   def part_2 do
     reset_state = get_input() |> set_initial_data()
 
-    Enum.map(0..99, fn noun ->
-      Enum.map(0..99, fn verb ->
-        value = reset_state |> set_initial_data(noun, verb) |> solve_part_1
-
-        if value === 19_690_720 do
-          IO.puts(100 * noun + verb)
-        end
-      end)
+    for noun <- 0..99, verb <- 0..99 do
+      {noun, verb}
+    end
+    |> Enum.filter(fn {noun, verb} ->
+      reset_state |> set_initial_data(noun, verb) |> solve_part_1 === 19_690_720
     end)
+    |> get_result()
+  end
 
-    nil
+  def get_result([{noun, verb}]) do
+    100 * noun + verb
   end
 
   def get_input() do
@@ -39,8 +39,8 @@ defmodule Solution do
 
   def solve_part_1(list, cursor \\ 0) do
     case Enum.at(list, cursor) do
-      1 -> solve_part_1(add(list, cursor + 1, cursor + 2, cursor + 3), cursor + 4)
-      2 -> solve_part_1(multiply(list, cursor + 1, cursor + 2, cursor + 3), cursor + 4)
+      1 -> list |> add(cursor + 1, cursor + 2, cursor + 3) |> solve_part_1(cursor + 4)
+      2 -> list |> multiply(cursor + 1, cursor + 2, cursor + 3) |> solve_part_1(cursor + 4)
       99 -> hd(list)
       _ -> {:error, "Invalid OPcode"}
     end
