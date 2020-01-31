@@ -39,8 +39,8 @@ defmodule Solution do
 
   def solve_part_1(list, cursor \\ 0) do
     case Enum.at(list, cursor) do
-      1 -> solve_part_1(add(list, cursor + 1, cursor + 2, cursor + 3), cursor + 4)
-      2 -> solve_part_1(multiply(list, cursor + 1, cursor + 2, cursor + 3), cursor + 4)
+      1 -> list |> add(cursor + 1, cursor + 2, cursor + 3) |> solve_part_1(cursor + 4)
+      2 -> list |> multiply(cursor + 1, cursor + 2, cursor + 3) |> solve_part_1(cursor + 4)
       99 -> hd(list)
       _ -> {:error, "Invalid OPcode"}
     end
