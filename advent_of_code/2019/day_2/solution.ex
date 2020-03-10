@@ -19,6 +19,7 @@ defmodule Solution do
     |> get_result()
   end
 
+  @spec get_result({integer, integer}) :: integer
   def get_result([{noun, verb}]) do
     100 * noun + verb
   end
@@ -32,11 +33,13 @@ defmodule Solution do
     |> Enum.map(&String.to_integer/1)
   end
 
+  @spec set_initial_data(list, integer, integer) :: list
   def set_initial_data(list, op1 \\ 12, op2 \\ 2) do
     [opcode | [_ | [_ | list]]] = list
     [opcode | [op1 | [op2 | list]]]
   end
 
+  @spec solve_part_1(list, integer) :: integer
   def solve_part_1(list, cursor \\ 0) do
     case Enum.at(list, cursor) do
       1 -> list |> add(cursor + 1, cursor + 2, cursor + 3) |> solve_part_1(cursor + 4)
@@ -46,11 +49,13 @@ defmodule Solution do
     end
   end
 
+  @spec add(list, integer, integer, integer) :: integer
   def add(list, op1, op2, res) do
     value = Enum.at(list, Enum.at(list, op1)) + Enum.at(list, Enum.at(list, op2))
     List.replace_at(list, Enum.at(list, res), value)
   end
 
+  @spec multiply(list, integer, integer, integer) :: integer
   def multiply(list, op1, op2, res) do
     value = Enum.at(list, Enum.at(list, op1)) * Enum.at(list, Enum.at(list, op2))
     List.replace_at(list, Enum.at(list, res), value)

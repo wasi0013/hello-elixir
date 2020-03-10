@@ -3,30 +3,33 @@ defmodule Solution do
     solve_part_1()
     solve_part_2()
   end
-  
+
   def solve_part_1 do
     get_input()
     |> Enum.map(&get_fuel_req/1)
-    |> Enum.sum
+    |> Enum.sum()
   end
 
   def solve_part_2 do
     get_input()
     |> Enum.map(&get_added_fuel/1)
-    |> Enum.sum
+    |> Enum.sum()
   end
 
-  def get_input do 
+  def get_input do
     {:ok, data} = File.read("input.txt")
+
     String.split(data, ["\n"])
-    |> Enum.filter(fn (item) -> item != "" end)
+    |> Enum.filter(fn item -> item != "" end)
     |> Enum.map(&String.to_integer/1)
   end
 
+  @spec get_fuel_req(integer) :: integer
   def get_fuel_req(mass), do: div(mass, 3) - 2
 
+  @spec get_added_fuel(integer) :: integer
   def get_added_fuel(mass) do
     value = get_fuel_req(mass)
-    if (value > 0), do:  value + get_added_fuel(value), else: 0
+    if value > 0, do: value + get_added_fuel(value), else: 0
   end
 end

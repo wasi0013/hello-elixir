@@ -1,0 +1,36 @@
+defmodule Solution do
+  def run do
+    Enum.sum(
+      Enum.map(get_input(), fn item ->
+        if check_adjacent_digits?(item) && check_increasing?(item) && check_larger_group?(item),
+          do: 1,
+          else: 0
+      end)
+    )
+  end
+
+  def get_input do
+    # given range 236491-713787 
+    236_666..699_999
+  end
+
+  def check_adjacent_digits?(number) do
+    Enum.any?(
+      Enum.map([2, 3, 4, 5, 6, 7, 8, 9], fn n ->
+        Enum.count(Integer.digits(number), &(&1 == n)) > 1
+      end)
+    )
+  end
+
+  def check_increasing?(number) do
+    Enum.sort(Integer.digits(number)) == Integer.digits(number)
+  end
+
+  def check_larger_group?(number) do
+    Enum.any?(
+      Enum.map([2, 3, 4, 5, 6, 7, 8, 9], fn n ->
+        Enum.count(Integer.digits(number), &(&1 == n)) == 2
+      end)
+    )
+  end
+end
