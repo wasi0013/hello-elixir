@@ -12,7 +12,7 @@ defmodule Solution do
   def clean_comma(data), do: Regex.replace(~r/,/, data, "")
 
   def solve_part2(data), do: data |> clean_ignored |> grab_garbage |> count_garbage
-  def get_garbage(data), do: Regex.scan(~r/<[^>]*>/, data)
+  def grab_garbage(data), do: Regex.scan(~r/<[^>]*>/, data)
 
   def count_garbage(data),
     do: Enum.map(data, fn [h | _t] -> String.length(h) - 2 end) |> Enum.sum()
