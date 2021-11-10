@@ -1,5 +1,5 @@
 defmodule Solution do
-  def run, do: get_input() |> solve_part2()
+  def run, do: get_input() |> solve_part1()
 
   def solve_part1(data),
     do: data |> clean_ignored |> clean_garbage |> clean_comma |> count_score(1)
